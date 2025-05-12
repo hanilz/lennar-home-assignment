@@ -1,6 +1,13 @@
 # lennar-home-assignment
 This repository serves as the submission of the package truck loading problem home assignment
 
+## Important Note
+I wasn't able to complete the main logic of the assignment, but I was able to build a working FastAPI backend service
+with a local SQLite DB schema.
+
+I managed to create basic API routes (get and get_by_id), but didn't manage to complete the main logic of the assignment 
+(although I have it figured out). 
+
 ## Assignment
 You have a warehouse that stores various packages. 
 
@@ -26,33 +33,26 @@ might be arranged in a truck, rather than relying solely on volume checks.
 ### Data Models
 The Package data model will include:
 - id: int
-- height: double
-- width: double
-- depth: double
-- volume: double
+- height: float
+- width: float
+- depth: float
+- volume: float
+- is_shipped: float
 
 The Truck data model will include:
 - Fields:
   - id: int
-  - height: double
-  - width: double
-  - depth: double
+  - height: float
+  - width: float
+  - depth: float
   - packages: list[Package]
-  - containable_volume: double
-  - filled_volume: double
+  - containable_volume: float
+  - filled_volume: float
 - Functions:
   - load_package(package: Package) -> bool
   - load_packages(packages: list[Packages]) -> bool
   - is_truck_filled() -> bool
   - delay_packages(packages: list[Package])
-
-The DelayedWarehouse data model will include:
-- Fields:
-  - packages: list[Package]  *used as stack with append and pop*
-- Functions:
-  - is_empty() -> bool
-  - delay_packages(packages: list[packages]) ->  bool
-  - pop() -> Package 
 
 Utils:
 - calculate_volume(height: double, width: double, depth: double) -> double
@@ -68,8 +68,8 @@ I'll need to address the issues involving:
 - get
   - all 
   - by id
-  - all shipped
-- put
+  - all shipped (?)
+- put (create new)
   - require height, width, depth
 
 /truck
@@ -78,7 +78,7 @@ I'll need to address the issues involving:
   - by id
   - shipped (If I have time)
   - not shipped (If I have time)
-- put
+- put (create new)
   - require height, width, depth
 
 /load (or add to truck)
@@ -97,8 +97,31 @@ I'll need to address the issues involving:
   - Lets anyone run the application fast and easy.
 
 ## Running the App
-TODO
+### locally
+1. Clone Git Repository and cd into it:
+```bash
+git clone https://github.com/hanilz/lennar-home-assignment.git && cd lennar-home-assignment 
+```
+
+2. Install the requirements from requirements.txt:
+```bash
+pip3 install -r requirements.txt
+```
+
+3. Run the FastAPI app on port 8000:
+```bash
+fastapi dev app.py
+```
+
+## Docs
+After running the app, you can access the docs using via http://127.0.0.1:8000/docs
 
 ## Resources Used:
-1. Pydantic documentation: https://docs.pydantic.dev/latest/
-2. 
+1. Pydantic docs: https://docs.pydantic.dev/latest/
+2. SQLite3 docs: https://docs.python.org/3/library/sqlite3.html
+3. FastAPI docs: https://fastapi.tiangolo.com/
+4. Google search
+
+## Tools Used
+- PyCharm IDE
+- SQLite viewer: db-browser-for-sqlite
